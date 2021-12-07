@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:EasyProject"
              xmlns:materialDesign="https://materialdesigninxaml.net/winfx/xaml/themes"
-             StartupUri="/View/TestWindow.xaml">
+             StartupUri="/View/SignupPage.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

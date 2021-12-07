@@ -1,4 +1,5 @@
-﻿using Microsoft.Expression.Interactivity.Core;
+﻿using EasyProject.Model;
+using Microsoft.Expression.Interactivity.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,12 @@ namespace EasyProject.ViewModels
     {
 
         // SignupPage.xaml에서 받아올 프로퍼티 구현 + 바인딩해야함
-        private string ename; // 필드
+        private string ename;
 
-        public string Ename // 프로퍼티
+        public string Ename
         {
             get { return ename; }
-            set
-            {
-                ename = value;
-            }
+            set { ename = value; }
         }
 
         private ActionCommand commandTest;
@@ -39,7 +37,10 @@ namespace EasyProject.ViewModels
 
         private void PerformCommandTest()
         {
-            // 회원가입 메소드 
+            Console.WriteLine("PerformCommandTest()");
+            // 회원가입 메소드
+            Console.WriteLine($"ENAME: {ename}");
+
         }
     }
 }
