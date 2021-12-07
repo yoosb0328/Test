@@ -1,11 +1,13 @@
-﻿using Oracle.ManagedDataAccess.Client;
+﻿using EasyProject.Model;
+using EasyProject.ViewModels;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyProject.Model
+namespace EasyProject.Dao
 {
     public class EmpDao : IEmpDao
     {

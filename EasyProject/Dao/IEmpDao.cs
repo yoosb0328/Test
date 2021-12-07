@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyProject.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,4 +11,5 @@ namespace EasyProject.Model
     {
         List<EmpModel> SelectQuery(string sql, params object[] param);
     }// IEmpDao
+
 }// namespace 
