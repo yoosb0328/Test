@@ -48,7 +48,6 @@ namespace EasyProject.ViewModels
         }
 
         private ActionCommand commandTest;
-
         public ICommand CommandTest
         {
             get

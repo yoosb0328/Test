@@ -10,9 +10,20 @@ namespace EasyProject.ViewModels
 {
     class SignupViewModel
     {
-        // SignupPage.xaml에서 받아올 프로퍼티 구현 + 바인딩해야함
-        private ActionCommand commandTest;
 
+        // SignupPage.xaml에서 받아올 프로퍼티 구현 + 바인딩해야함
+        private string ename; // 필드
+
+        public string Ename // 프로퍼티
+        {
+            get { return ename; }
+            set
+            {
+                ename = value;
+            }
+        }
+
+        private ActionCommand commandTest;
         public ICommand CommandTest // SignupPage.xaml과 바인딩 안했음
         {
             get
