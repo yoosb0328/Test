@@ -96,6 +96,9 @@
       <DependentUpon>TabPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="testDBConn.cs" />
+    <Compile Include="View\TestWindow2.xaml.cs">
+      <DependentUpon>TestWindow2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,10 @@
     <Page Include="Dictionary\WaterMarkDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TestWindow2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\TestWindow.xaml">
       <SubType>Designer</SubType>

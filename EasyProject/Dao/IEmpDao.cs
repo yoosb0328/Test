@@ -10,6 +10,11 @@ namespace EasyProject.Model
     public interface IEmpDao
     {
         List<EmpModel> SelectQuery(string sql, params object[] param);
+
+        EmpModel GetEmpSmith(string sql, params object[] param);
+
+        void SmithSal(string sql, params object[] param);
+
     }// IEmpDao
 
 }// namespace 

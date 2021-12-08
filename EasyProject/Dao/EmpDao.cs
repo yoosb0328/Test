@@ -18,11 +18,23 @@ namespace EasyProject.Dao
 
         private static string connectionString = $"User Id={user};Password={password};Data Source={ds};";
 
-
         static OracleConnection conn = new OracleConnection(connectionString);
         static OracleCommand cmd = new OracleCommand();
 
+        public static void ConnectingDB()
+        {
+            try
+            {
+                //DB 연결
+                conn.Open();
+            }//try
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                conn.Close();
+            }//catch
 
+        }//ConnectingDB()
 
         public List<EmpModel> SelectQuery(string sql, params object[] param)
         {
@@ -31,7 +43,7 @@ namespace EasyProject.Dao
             List<EmpModel> list = new List<EmpModel>();
             try
             {
-                dbConn.ConnectingDB();
+                ConnectingDB();
                 cmd.Connection = conn;
 
                 cmd.CommandText = sql;
@@ -83,6 +95,79 @@ namespace EasyProject.Dao
 
             return list;
         }// SelectQuery(string sql, params object[] param)
+
+        public EmpModel GetEmpSmith(string sql, params object[] param)
+        {
+
+            EmpModel emp = new EmpModel();
+            try
+            {
+                ConnectingDB();
+                cmd.Connection = conn;
+
+                cmd.CommandText = sql;
+                cmd.BindByName = true;
+
+                if (param.Length != 0)
+                {
+                    cmd.Parameters.Add(new OracleParameter("name", param[0]));
+                   
+                }//if
+
+                OracleDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string ename = reader.GetString(0);
+                    Int32 sal = reader.GetInt32(1);
+
+                    emp.ename = ename;
+                    emp.Sal = sal;
+                }//while
+
+                conn.Close();
+
+            }//try
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                conn.Close();
+            }//catch
+
+            return emp; // emp 객체 리턴
+            
+        } // getEmpSmith
+
+        public void SmithSal(string sql, params object[] param)
+        {
+            try
+            {
+                ConnectingDB();
+                cmd.Connection = conn;
+
+                cmd.CommandText = sql;
+                cmd.BindByName = true;
+
+                if (param.Length != 0)
+                {
+                    cmd.Parameters.Add(new OracleParameter("num", param[0]));
+                    cmd.Parameters.Add(new OracleParameter("name", param[1]));
+
+                }//if
+
+                OracleDataReader reader = cmd.ExecuteReader();
+
+                conn.Close();
+                Console.WriteLine("smithSal done");
+
+            }//try
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                conn.Close();
+            }//catch
+
+        } // plusSmithSal
 
     }// class EmpDao
 

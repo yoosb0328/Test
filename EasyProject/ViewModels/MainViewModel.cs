@@ -11,42 +11,29 @@ using System.Windows.Input;
 namespace EasyProject.ViewModels
 {
 
-    public class MainViewModel
+    public class MainViewModel : Notifier
     {
 
         EmpDao dao = new Dao.EmpDao();
        
-        public void CommandTest2()
-        {
-            Console.WriteLine("");
-            /*
-            List<EmpModel> list = dao.SelectQuery("SELECT * FROM emp WHERE empno >= :num AND job LIKE :job", 5000, "CLERK");
-            foreach (EmpModel emp in list)
+        private EmpModel emp;
+        public EmpModel Emp
+        { 
+            get { return emp; }
+            set
             {
-                Console.WriteLine(emp.empno + " + " + emp.ename + " + " + emp.job);
+                emp = value;
+                OnPropertyChanged("Emp");
             }
-            */
-            /*
-            private void testBtn_Click(object sender, RoutedEventArgs e) //ID/PW 찾기 버튼 클릭 시
-            {
-                //throw new NotImplementedException();
-                //ID/PW 찾기 페이지 연결
-                MessageBox.Show("ID/PW 찾기 버튼 누르셨습니다.");
-
-                //dbConn.SelectQuery("SELECT empno, ename, job FROM emp WHERE empno >= :num AND job LIKE :job", 5000, "CLERK");
-                List<EmpModel> list = emp.SelectQuery("SELECT * FROM emp WHERE empno >= :num AND job LIKE :job", 5000, "CLERK");
-                this.DataContext = list;
-
-
-                foreach (EmpModel emp in list)
-                {
-                    Console.WriteLine(emp.empno + " + " + emp.ename + " + " + emp.job);
-                }
-
-            }
-            */
         }
 
+        public MainViewModel()
+        {
+            Emp = dao.GetEmpSmith("SELECT ename, sal FROM emp WHERE ename = :name", "SMITH");
+        }
+        /// <summary>
+        /// CommandTest -> TestWindow
+        /// </summary>
         private ActionCommand commandTest;
         public ICommand CommandTest
         {
@@ -69,5 +56,49 @@ namespace EasyProject.ViewModels
                 Console.WriteLine(emp.empno + " + " + emp.ename + " + " + emp.job);
             }
         }
-    }
+        /// <summary>
+        /// CommandTest2,3 -> TestWindow2 (테스트용이라 view별로 viewmodel 분리안해놨음)
+        /// </summary>
+        private ActionCommand commandTest2;
+        public ICommand CommandTest2
+        {
+            get
+            {
+                if (commandTest2 == null)
+                {
+                     commandTest2 = new ActionCommand(PerformCommandTest2);
+                }
+                return commandTest2;
+            }
+        }
+        
+        
+        private void PerformCommandTest2() 
+        {
+            dao.SmithSal("UPDATE emp SET sal = sal + :num WHERE ename =:name", 5, "SMITH"); // update문에서는 어떻게 Emp형태로 리턴받나? Emp형태로 return을 못받아서 OnPropertyChanged("Emp");가 미동작?
+        }
+
+        private ActionCommand commandTest3;
+        public ICommand CommandTest3
+        {
+            get
+            {
+                if (commandTest3 == null)
+                {
+                    commandTest3 = new ActionCommand(PerformCommandTest3);
+                }
+                return commandTest3;
+            }
+        }
+
+
+        private void PerformCommandTest3()
+        {
+            dao.SmithSal("UPDATE emp SET sal = sal - :num WHERE ename =:name", 5, "SMITH");
+        }
+
+
+    } // public class MainViewModel
+
+
 }

@@ -23,10 +23,8 @@ namespace EasyProject.ViewModels
             get { return ename; }
             set { ename = value; }
         }
-        /// <summary>
-        /// </summary>
-        /// 
-        private ObservableCollection<DeptModel> dept;
+
+        private ObservableCollection<DeptModel> dept; 
         public ObservableCollection<DeptModel> Depts // Depts = DeptModel 객체가 담긴 리스트
         {
             get { return dept; }
@@ -49,7 +47,6 @@ namespace EasyProject.ViewModels
         public SignupViewModel()
         {
             List<DeptModel> list = dao.GetDeptModels("SELECT DEPT_NAME FROM DEPT");
-            Console.WriteLine(list.Count);
 
             Depts = new ObservableCollection<DeptModel>(list); // List타입 객체 list를 OC 타입 Depts에 넣음 
                   
