@@ -22,22 +22,7 @@ namespace EasyProject.Dao
         static OracleConnection conn = new OracleConnection(connectionString);
         static OracleCommand cmd = new OracleCommand();
 
-        //DB연결 메소드
-        public static void ConnectingDB()
-        {
-            try
-            {
 
-                //DB 연결
-                conn.Open();
-            }//try
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                conn.Close();
-            }//catch
-
-        }//ConnectingDB()
 
         public List<EmpModel> SelectQuery(string sql, params object[] param)
         {
@@ -46,7 +31,7 @@ namespace EasyProject.Dao
             List<EmpModel> list = new List<EmpModel>();
             try
             {
-                ConnectingDB();
+                dbConn.ConnectingDB();
                 cmd.Connection = conn;
 
                 cmd.CommandText = sql;

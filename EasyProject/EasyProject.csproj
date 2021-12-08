@@ -76,8 +76,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dao\ISignupDao.cs" />
+    <Compile Include="Dao\SignupDao.cs" />
     <Compile Include="EasyOracleConnection.cs" />
     <Compile Include="Dao\EmpDao.cs" />
+    <Compile Include="Model\DeptModel.cs" />
     <Compile Include="Model\EmpModel.cs" />
     <Compile Include="Dao\IEmpDao.cs" />
     <Compile Include="Notifier.cs" />
