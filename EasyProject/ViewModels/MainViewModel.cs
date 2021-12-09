@@ -75,8 +75,10 @@ namespace EasyProject.ViewModels
         
         private void PerformCommandTest2() 
         {
-            dao.SmithSal("UPDATE emp SET sal = sal + :num WHERE ename =:name", 5, "SMITH"); // update문에서는 어떻게 Emp형태로 리턴받나? Emp형태로 return을 못받아서 OnPropertyChanged("Emp");가 미동작?
+            dao.SmithSal("UPDATE emp SET sal = sal + :num WHERE ename =:name", 5, "SMITH"); 
+            Emp = dao.GetEmpSmith("SELECT ename, sal FROM emp WHERE ename = :name", "SMITH");
         }
+
 
         private ActionCommand commandTest3;
         public ICommand CommandTest3
@@ -95,6 +97,7 @@ namespace EasyProject.ViewModels
         private void PerformCommandTest3()
         {
             dao.SmithSal("UPDATE emp SET sal = sal - :num WHERE ename =:name", 5, "SMITH");
+            Emp = dao.GetEmpSmith("SELECT ename, sal FROM emp WHERE ename = :name", "SMITH");
         }
 
 

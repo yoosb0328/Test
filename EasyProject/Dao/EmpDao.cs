@@ -156,8 +156,8 @@ namespace EasyProject.Dao
                 }//if
 
                 OracleDataReader reader = cmd.ExecuteReader();
-
                 conn.Close();
+               
                 Console.WriteLine("smithSal done");
 
             }//try
