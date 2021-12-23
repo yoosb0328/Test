@@ -22,34 +22,80 @@ namespace EasyProject
 
     public partial class MainWindow : Window
     {
+
         double orginalWidth, originalHeight;
         ScaleTransform scale = new ScaleTransform();
 
-        public MainWindow(){
+        public MainWindow()
+        {
             InitializeComponent();
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;  //화면버튼
             this.Loaded += new RoutedEventHandler(Window1_Loaded);
+            this.MouseLeftButtonDown += MainWindow_MouseLeftButtonDown;    //드래그 무브
         }
-        
-        void Window1_SizeChanged(object sender, SizeChangedEventArgs e){
+        void MainWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)       //드래그 무브
+        {
+            this.DragMove();
+        }
+
+        void Window1_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
             ChangeSize(e.NewSize.Width, e.NewSize.Height);
         }
 
-        void Window1_Loaded(object sender, RoutedEventArgs e){
+        void Window1_Loaded(object sender, RoutedEventArgs e)
+        {
             orginalWidth = this.Width;
             originalHeight = this.Height;
 
-            if (this.WindowState == WindowState.Maximized){
+            if (this.WindowState == WindowState.Maximized)
+            {
                 ChangeSize(this.ActualWidth, this.ActualHeight);
             }
             this.SizeChanged += new SizeChangedEventHandler(Window1_SizeChanged);
         }
 
-        private void ChangeSize(double width, double height){
+        private void ChangeSize(double width, double height)
+        {
             scale.ScaleX = width / orginalWidth;
             scale.ScaleY = height / originalHeight;
 
             FrameworkElement rootElement = this.Content as FrameworkElement;
             rootElement.LayoutTransform = scale;
+        }
+
+        private void btn_close(object sender, RoutedEventArgs e)       //버튼 창닫기
+        {
+            Window.GetWindow(this).Close();
+        }
+
+        private void btn_minimize(object sender, RoutedEventArgs e)       //화면 내리기
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+            else if (this.WindowState == WindowState.Minimized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void btn_extend(object sender, RoutedEventArgs e)       //화면 확대 축소
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+            else if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+
         }
     }
 }

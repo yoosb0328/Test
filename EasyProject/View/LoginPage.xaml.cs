@@ -1,4 +1,4 @@
-﻿using EasyProject.Model;
+﻿using Microsoft.Toolkit.Mvvm.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using EasyProject.ViewModel;
 
 namespace EasyProject
 {
@@ -27,20 +28,30 @@ namespace EasyProject
             loginBtn.Click += loginBtn_Click;
             signUpBtn.Click += signUpBtn_Click;
             searchBtn.Click += searchBtn_Click;
-            //체크박스 클릭 시 --> 아이디 다음번에 왔을 때 기억하는거 어떻게 할지  정해야함.
+
+            id_TxtBox.Text = Properties.Settings.Default.LoginIDSave;
+            if(id_TxtBox.Text.Equals(""))
+            {
+
+            }
+            else
+            {
+                id_TxtBox.Focus();
+                id_TxtBox.SelectionStart = id_TxtBox.Text.Length;
+            }
+
         }
+
+
         private void searchBtn_Click(object sender, RoutedEventArgs e) //ID/PW 찾기 버튼 클릭 시
         {
             //throw new NotImplementedException();
             //ID/PW 찾기 페이지 연결
-            MessageBox.Show("ID/PW 찾기 버튼 누르셨습니다.");
-
-            //dbConn.SelectQuery("SELECT empno, ename, job FROM emp WHERE empno >= :num AND job LIKE :job", 5000, "CLERK");
-            List<EmpModel> list = dbConn.SelectQuery("SELECT * FROM emp WHERE empno >= :num AND job LIKE :job", 5000, "CLERK");
-            foreach(EmpModel emp in list)
-            {
-                Console.WriteLine(emp.empno + " + " + emp.ename + " + " + emp.job);
-            }
+            //MessageBox.Show("PW 변경 버튼 누르셨습니다.");
+            NavigationService.Navigate
+                (
+                new Uri("/View/PasswordChangePage.xaml", UriKind.Relative) // 비밀번호 변경화면
+                );
         }
         private void signUpBtn_Click(object sender, RoutedEventArgs e) //회원가입 버튼 클릭 시
         {
@@ -52,12 +63,56 @@ namespace EasyProject
                 );
 
         }
-        private void loginBtn_Click(object sender, RoutedEventArgs e) //로그인 버튼 클릭 시
+        private async void loginBtn_Click(object sender, RoutedEventArgs e) //로그인 버튼 클릭 시
         {
-            //throw new NotImplementedException();
-            //DB 연결해서 있는 회원인지 아닌지 확인 후 없으면 MessageBox 없다고, 있으면 메인화면 연결
-            MessageBox.Show(id_TxtBox.Text + " " + password_PwBox.Password);
+            await Task.Delay(1500);
+            var temp = Ioc.Default.GetService<LoginViewModel>();
 
+            if(temp.isLogin == true)
+            {
+                var button = sender as Button;
+                if (button != null)
+                {
+                    button.Command.Execute(null);
+                }
+
+                if(id_Checkbox.IsChecked == true)
+                {
+                    Properties.Settings.Default.LoginIDSave = Convert.ToString(App.nurse_dto.Nurse_no);
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    Properties.Settings.Default.LoginIDSave = null;
+                    Properties.Settings.Default.Save();
+                }
+
+
+                NavigationService.Navigate(new Uri("/View/TabPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                MessageBox.Show("올바른 사번/비밀번호를 입력해주세요.");
+            }
+
+/*            var button = sender as Button;
+            if (button != null) 
+            {
+                button.Command.Execute(null);
+            }
+
+            NavigationService.Navigate(new Uri("/View/TabPage.xaml", UriKind.Relative));*/
+        
+        }
+
+        private void checkbox_UnChecked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void checkbox_Checked(object sender, RoutedEventArgs e)
+        {
+        
         }
     }
 }
