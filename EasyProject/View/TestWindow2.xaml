@@ -35,6 +35,6 @@
             </i:Interaction.Triggers>
         </Button>
         <TextBox x:Name="sal_TxtBox" HorizontalContentAlignment="Left" IsReadOnly="True"
-            VerticalContentAlignment="Center" FontSize="13" VerticalAlignment="Top" Margin="490,204,129,0" Height="30" Cursor="IBeam" Text="{Binding Emp.Sal}" />
+            VerticalContentAlignment="Center" FontSize="13" VerticalAlignment="Top" Margin="490,204,129,0" Height="30" Cursor="IBeam" Text="{Binding Emp.sal}" />
     </Grid>
 </Window>

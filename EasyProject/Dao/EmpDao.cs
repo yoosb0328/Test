@@ -122,7 +122,7 @@ namespace EasyProject.Dao
                     Int32 sal = reader.GetInt32(1);
 
                     emp.ename = ename;
-                    emp.Sal = sal;
+                    emp.sal = sal;
                 }//while
 
                 conn.Close();

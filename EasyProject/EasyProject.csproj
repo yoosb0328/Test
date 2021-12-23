@@ -83,6 +83,7 @@
     <Compile Include="Model\DeptModel.cs" />
     <Compile Include="Model\EmpModel.cs" />
     <Compile Include="Dao\IEmpDao.cs" />
+    <Compile Include="Model\NurseModel.cs" />
     <Compile Include="Notifier.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SignupViewModel.cs" />

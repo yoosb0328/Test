@@ -15,8 +15,9 @@ namespace EasyProject.Model
             set 
             { 
                 dept_name = value;
-                OnPropertyChanged("Dept_name"); 
+                //OnPropertyChanged("Dept_name"); 
             }
         }
+
     }
 }

@@ -10,5 +10,6 @@ namespace EasyProject.Dao
     public interface ISignupDao
     {
         List<DeptModel> GetDeptModels(string sql);
+        void InsertQuery(string sql, NurseModel model);
     } // public interface ISignupDao
 } // namespace

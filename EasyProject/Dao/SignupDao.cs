@@ -72,5 +72,10 @@ namespace EasyProject.Dao
             return list; // DeptModel 객체들이 담긴 list 리턴
 
         } // GetDeptModels(string sql)
+
+        public void InsertQuery(string sql, NurseModel model)
+        {
+            throw new NotImplementedException();
+        }
     } // public class SignupDao : ISignupDao
 } // namespace

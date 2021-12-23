@@ -16,40 +16,40 @@ namespace EasyProject.ViewModels
         SignupDao dao = new Dao.SignupDao();
 
         // SignupPage.xaml에서 받아올 프로퍼티 구현 + 바인딩해야함
-        private string ename;
 
-        public string Ename
-        {
-            get { return ename; }
-            set { ename = value; }
-        }
 
-        private ObservableCollection<DeptModel> dept; 
+        private ObservableCollection<DeptModel> depts;
         public ObservableCollection<DeptModel> Depts // Depts = DeptModel 객체가 담긴 리스트
         {
-            get { return dept; }
-            set { dept = value; }
+            get { return depts; }
+            set { depts = value; }
         }
 
-        private DeptModel selectDept;
-        public DeptModel SelectedDept // 콤보박스에서 선택한 Dept -> DB로 넘길 때 ?
+
+        public NurseModel Model { get; set; }
+
+        private DeptModel selectedDept;
+        public DeptModel SelectedDept
         {
             get
             {
-                return selectDept;
+                return selectedDept;
             }
             set
             {
-                selectDept = value;
+                selectedDept = value;
             }
         }
 
         public SignupViewModel()
         {
+            Model = new NurseModel();
+
             List<DeptModel> list = dao.GetDeptModels("SELECT DEPT_NAME FROM DEPT");
 
             Depts = new ObservableCollection<DeptModel>(list); // List타입 객체 list를 OC 타입 Depts에 넣음 
-                  
+            Console.WriteLine("SignupViewModel()");
+
         }
         
         private ActionCommand commandTest;
@@ -68,12 +68,9 @@ namespace EasyProject.ViewModels
 
         private void PerformCommandTest()
         {
-            Console.WriteLine("PerformCommandTest()");
-            // 회원가입 메소드
-            Console.WriteLine($"ENAME: {ename}");
-
+            Console.WriteLine(Model.nurse_name);
         }
-        
+
         /*
         // ICommand 방식
         public class CommandTest : ICommand
