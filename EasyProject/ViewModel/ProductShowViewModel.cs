@@ -137,6 +137,7 @@ namespace EasyProject.ViewModel
 
         public ProductShowViewModel()
         {
+            Console.WriteLine("PSVM 생성자");
             Depts = new ObservableCollection<DeptModel>(dept_dao.GetDepts());
 
             Products = new ObservableCollection<ProductShowModel>(product_dao.GetProducts());
@@ -166,7 +167,7 @@ namespace EasyProject.ViewModel
         public void GetProductsByDept()
         {
             Products = new ObservableCollection<ProductShowModel>(product_dao.GetProductsByDept(SelectedDept));
-            ComboboxChanged = true;
+            //ComboboxChanged = true;
         }
 
 

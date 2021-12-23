@@ -10,6 +10,8 @@ using System.Windows.Navigation;
 using System.Windows.Media;
 using System.Collections;
 using EasyProject.Model;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace EasyProject.View.TabItemPage
 {
@@ -35,13 +37,14 @@ namespace EasyProject.View.TabItemPage
         private enum PagingMode
         { First = 1, Next = 2, Previous = 3, Last = 4, PageCountChange = 5 };
 
-        List<object> myLst = new List<object>();
+        //List<object> myLst = new List<object>();
 
-        public String userDept = null;
+        public string userDept;
         //public WindowStartupLocation WindowStartupLocation { get; }
 
         public StatusPage()
         {
+            Console.WriteLine("StatusPage()");
             InitializeComponent();
             cbNumberOfRecords.Items.Add("10");
             cbNumberOfRecords.Items.Add("20");
@@ -50,11 +53,11 @@ namespace EasyProject.View.TabItemPage
             cbNumberOfRecords.Items.Add("100");
             cbNumberOfRecords.SelectedItem = 10;
             //WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            deptName_ComboBox1.SelectedIndex = (int)App.nurse_dto.Dept_id - 1;
+            //deptName_ComboBox1.SelectedIndex = (int)App.nurse_dto.Dept_id - 1;
             this.Loaded += MainWindow_Loaded;
-
-            userDept = (deptName_ComboBox1.SelectedValue as DeptModel).Dept_name;
-
+            //var temp = Ioc.Default.GetService<ProductShowModel>();
+            //userDept = (deptName_ComboBox1.SelectedValue as DeptModel).Dept_name;
+            
 
         }
 
@@ -206,26 +209,30 @@ namespace EasyProject.View.TabItemPage
 
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (deptName_ComboBox1.SelectedValue != null)
             {
-                var deptModelObject = deptName_ComboBox1.SelectedValue as DeptModel;
-                var deptNameText = deptModelObject.Dept_name;
-                var userText = userDept;
-
-                
-                if (deptNameText.Equals(userText) || userText == null)
+                //var deptModelObject = deptName_ComboBox1.SelectedValue as DeptModel;
+                //var deptNameText = deptModelObject.Dept_name;
+                //var userText = userDept;
+                bool DeptCheck = deptName_ComboBox1.SelectedIndex.Equals( (int)App.nurse_dto.Dept_id - 1 );
+                if (DeptCheck)
                 {
-                    Console.WriteLine(userText + "같은 부서일때");
+                    Console.WriteLine("같은 부서일때");                   
                     buttonColumn.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    Console.WriteLine(userText + "다른 부서일때");
+                    Console.WriteLine("다른 부서일때");
                     buttonColumn.Visibility = Visibility.Hidden;
                 }
+                //if (deptNameText.Equals(userText) || userText == null)
+                //{
+
+                //    buttonColumn.Visibility = Visibility.Visible;
+                //}
             }
-        } 
+        }
     }
 }
